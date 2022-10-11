@@ -10,13 +10,6 @@ class Board private constructor(
             (0 until width)
                 .map { column -> Coordinate(row, column) }
         }
-    private val corner = listOf(
-        Coordinate(0, 0),
-        Coordinate(0, width - 1),
-        Coordinate(height - 1, 0),
-        Coordinate(height - 1, width - 1),
-    )
-    val aroundCorner: List<Coordinate> = corner.flatMap { it.around }
 
     init {
         assert(columns.distinctBy { it.size }.size == 1)
@@ -59,28 +52,8 @@ class Board private constructor(
             .map { it.count() }
             .fold(0 vs 0) { acc, column -> acc + column }
 
-    fun countNothing(): Int = columns.sumOf { it.countNothing() }
-
     fun placeableCoordinates(piece: Cell.Piece) =
         coordinates.filter { coordinate -> this.isPlaceable(coordinate, piece) }
-
-    fun openness(coordinate: Coordinate, piece: Cell.Piece): Int? {
-        if (!this.isPlaceable(coordinate, piece)) return null
-        val coordinates = mutableSetOf<Coordinate>()
-        for (lineStatus in getLinesStatus(coordinate)) {
-            if (!lineStatus.isPlaceableLine(piece)) continue
-            for (cell in lineStatus) {
-                when (cell.first) {
-                    Cell.Nothing, piece -> break
-                    else -> coordinates.add(cell.second)
-                }
-            }
-        }
-        return coordinates
-            .flatMap { it.around }
-            .distinct()
-            .count { this[it] == Cell.Nothing }
-    }
 
     fun place(
         coordinate: Coordinate,
@@ -155,7 +128,6 @@ class Column private constructor(
 ) : MutableList<Cell> by ArrayList(pieces) {
     fun count(): PieceCount =
         this.count { it == Cell.Piece.Black } vs this.count { it == Cell.Piece.White }
-    fun countNothing(): Int = this.count { it == Cell.Nothing }
 
     override fun toString(): String = this.joinToString { it.javaClass.name }
     override fun equals(other: Any?): Boolean =

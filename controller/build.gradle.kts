@@ -3,6 +3,7 @@ plugins {
     application
     kotlin("jvm") version "1.7.20"
     alias(libs.plugins.ktor)
+    alias(libs.plugins.serialization)
 }
 
 group = "com.oucrc"
@@ -15,6 +16,7 @@ application {
 }
 
 dependencies {
+    implementation(libs.serialization)
     implementation(libs.bundles.ktor)
     testImplementation(libs.bundles.test)
 }

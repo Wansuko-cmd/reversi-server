@@ -5,6 +5,7 @@ coroutine = "1.6.4"
 
 # ktor
 ktor = "2.1.2"
+logback = "1.2.11"
 
 # test
 mockk = "1.12.8"
@@ -17,6 +18,7 @@ coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.
 # ktor
 ktor-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 # test
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -26,7 +28,7 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 #
 [bundles]
-ktor = ["ktor-core", "ktor-netty"]
+ktor = ["ktor-core", "ktor-netty", "logback"]
 test = ["kotlin-test", "kotlin-junit", "kotlin-coroutine-test", "truth", "mockk"]
 
 [plugins]

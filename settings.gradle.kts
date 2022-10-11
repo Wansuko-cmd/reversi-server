@@ -16,4 +16,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "reversi-server"
 
+include("domain")
 include("controller")

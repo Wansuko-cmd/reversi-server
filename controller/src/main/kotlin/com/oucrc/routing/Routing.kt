@@ -2,11 +2,11 @@ package com.oucrc.routing
 
 sealed interface Routing {
     object Room : Routing {
-        const val path = "room"
-        object Index { const val path = "${Room.path}/" }
+        const val path = "rooms"
+        object Index { const val path = "" }
         object Show {
             const val roomId = "roomId"
-            const val path = "${Room.path}/{$roomId}"
+            const val path = "{$roomId}"
         }
     }
 }

@@ -2,15 +2,9 @@ package com.oucrc.serializable
 
 import room.BoardUseCaseModel
 
-@kotlinx.serialization.Serializable
-class BoardSerializable(
-    val board: List<List<Int>>,
-) {
-    companion object {
-        fun from(boardUseCaseModel: BoardUseCaseModel) =
-            boardUseCaseModel
-                .columns
-                .map { row -> row.map { column -> column.toInt() } }
-                .let { BoardSerializable(it) }
-    }
-}
+typealias BoardSerializable = List<List<Int>>
+
+fun boardSerializable(board: BoardUseCaseModel): BoardSerializable =
+    board
+        .columns
+        .map { row -> row.map { column -> column.toInt() } }

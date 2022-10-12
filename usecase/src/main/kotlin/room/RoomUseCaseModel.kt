@@ -8,7 +8,7 @@ data class RoomUseCaseModel(
     val id: RoomId,
     val black: UserUseCaseModel,
     val white: UserUseCaseModel,
-    val next: Cell.Piece?,
+    val next: UserUseCaseModel?,
     val board: BoardUseCaseModel,
 ) {
     companion object {
@@ -17,7 +17,11 @@ data class RoomUseCaseModel(
                 id = room.id,
                 black = UserUseCaseModel.from(room.black),
                 white = UserUseCaseModel.from(room.white),
-                next = room.next,
+                next = when(room.next) {
+                    is Cell.Piece.Black -> UserUseCaseModel.from(room.black)
+                    is Cell.Piece.White -> UserUseCaseModel.from(room.white)
+                    else -> null
+                },
                 board = BoardUseCaseModel.from(room.board),
             )
     }

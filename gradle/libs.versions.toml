@@ -23,7 +23,9 @@ serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", v
 # ktor
 ktor-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
-logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 # koin
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
@@ -38,7 +40,7 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 #
 [bundles]
-ktor = ["ktor-core", "ktor-netty", "logback"]
+ktor = ["ktor-core", "ktor-netty", "ktor-serialization", "ktor-content-negotiation", "ktor-logback"]
 koin = ["koin-core", "koin-ktor", "koin-logger"]
 test = ["kotlin-test", "kotlin-junit", "kotlin-coroutine-test", "truth", "mockk"]
 

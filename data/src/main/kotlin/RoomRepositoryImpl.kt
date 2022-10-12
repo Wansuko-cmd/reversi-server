@@ -1,9 +1,14 @@
 import room.Room
 import room.RoomId
 import room.RoomRepository
+import user.User
+import user.UserId
+import user.UserName
 
 object RoomRepositoryImpl : RoomRepository {
-    private val rooms = mutableListOf<Room>()
+    private val rooms = mutableListOf<Room>(
+        Room.create(User(UserId(""), UserName(""),), User(UserId(""), UserName(""),))
+    )
 
     override suspend fun getAll(): List<Room> = rooms
 

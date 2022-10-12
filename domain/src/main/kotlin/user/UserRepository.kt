@@ -1,7 +1,7 @@
 package user
 
 interface UserRepository {
-    fun getAll(): List<User>
-    fun getById(id: UserId): User
-    fun insert(user: User)
+    suspend fun getAll(): List<User>
+    suspend fun getById(id: UserId): User
+    suspend fun insert(user: User)
 }

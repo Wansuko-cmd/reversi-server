@@ -3,5 +3,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(libs.coroutine)
     testImplementation(libs.bundles.test)
 }

@@ -21,5 +21,6 @@ dependencies {
     implementation(project(":data"))
     implementation(libs.serialization)
     implementation(libs.bundles.ktor)
+    implementation(libs.bundles.koin)
     testImplementation(libs.bundles.test)
 }

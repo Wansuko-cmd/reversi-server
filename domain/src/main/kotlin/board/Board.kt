@@ -75,7 +75,7 @@ class Board private constructor(
         return newBoard
     }
 
-    private fun isPlaceable(
+    fun isPlaceable(
         coordinate: Coordinate,
         piece: Cell.Piece
     ): Boolean {

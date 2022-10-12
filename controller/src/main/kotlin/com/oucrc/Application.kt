@@ -1,11 +1,10 @@
 package com.oucrc
 
-import com.oucrc.plugins.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
+import com.oucrc.plugins.installPlugins
+import io.ktor.server.application.Application
 
-fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
-        configureRouting()
-    }.start(wait = true)
+fun main(args: Array<String>) = io.ktor.server.netty.EngineMain.main(args)
+
+fun Application.main() {
+    installPlugins()
 }

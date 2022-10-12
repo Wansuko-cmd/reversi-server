@@ -16,6 +16,9 @@ application {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":usecase"))
+    implementation(project(":data"))
     implementation(libs.serialization)
     implementation(libs.bundles.ktor)
     testImplementation(libs.bundles.test)

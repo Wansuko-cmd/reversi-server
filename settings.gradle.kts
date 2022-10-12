@@ -19,3 +19,4 @@ rootProject.name = "reversi-server"
 include("domain")
 include("usecase")
 include("controller")
+include("data")

@@ -8,7 +8,7 @@ import io.ktor.server.routing.*
 fun Application.mainRoute() {
     routing {
         route(Routing.Room.path) {
-            roomIndex(Routing.Room.Index.path)
+            roomIndex(path = Routing.Room.Index.path)
             roomShow(
                 path = Routing.Room.Show.path,
                 params = Routing.Room.Show.roomId,

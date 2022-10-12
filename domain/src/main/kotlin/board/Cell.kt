@@ -12,6 +12,12 @@ sealed interface Cell {
             override fun reverse(): Piece = Black
         }
     }
+
+    fun toInt() = when(this) {
+        is Nothing -> 0
+        is Piece.Black -> 1
+        is Piece.White -> 2
+    }
 }
 
 fun nothing(size: Int) = List(size) { Cell.Nothing }

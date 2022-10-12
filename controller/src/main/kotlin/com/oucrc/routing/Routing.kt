@@ -4,7 +4,10 @@ sealed interface Routing {
     object Room : Routing {
         const val path = "room"
         object Index { const val path = "${Room.path}/" }
-        object Show { const val path = "${Room.path}/{id}" }
+        object Show {
+            const val roomId = "roomId"
+            const val path = "${Room.path}/{$roomId}"
+        }
     }
 }
 

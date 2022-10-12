@@ -9,7 +9,10 @@ fun Application.mainRoute() {
     routing {
         route(Routing.Room.path) {
             roomIndex(Routing.Room.Index.path)
-            roomShow(Routing.Room.Show.path)
+            roomShow(
+                path = Routing.Room.Show.path,
+                params = Routing.Room.Show.roomId,
+            )
         }
     }
 }

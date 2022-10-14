@@ -4,6 +4,7 @@ import com.oucrc.routing.rooms.index.roomsIndexGet
 import com.oucrc.routing.rooms.show.roomsShowGet
 import com.oucrc.routing.rooms.show.roomsShowPost
 import com.oucrc.routing.users.index.usersIndexGet
+import com.oucrc.routing.users.index.usersIndexPost
 import com.oucrc.routing.users.show.usersShowGet
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -24,6 +25,7 @@ fun Application.mainRoute() {
         }
         route(Routing.User.path) {
             usersIndexGet(path = Routing.User.Index.path)
+            usersIndexPost(path = Routing.User.Index.path)
             usersShowGet(
                 path = Routing.User.Show.path,
                 param = Routing.User.Show.userId,

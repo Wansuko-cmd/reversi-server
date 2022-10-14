@@ -6,4 +6,6 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":utils"))
     implementation(libs.coroutine)
+    implementation(libs.bundles.database)
+    implementation(libs.h2)
 }

@@ -17,7 +17,7 @@ fun Application.koinPlugins() {
         single<UpdateRoomUseCase> { UpdateRoomUseCase(get()) }
 
         /*** Repository ***/
-        single<RoomRepository> { RoomRepositoryImpl }
+        single<RoomRepository> { RoomRepositoryImpl() }
     }
 
     install(Koin) { modules(module) }

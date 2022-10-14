@@ -5,4 +5,5 @@ plugins {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":utils"))
+    implementation(libs.coroutine)
 }

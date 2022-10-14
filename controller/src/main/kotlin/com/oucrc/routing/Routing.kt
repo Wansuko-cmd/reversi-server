@@ -9,6 +9,11 @@ sealed interface Routing {
             const val path = "{$roomId}"
         }
     }
+
+    object User : Routing {
+        const val path = "users"
+        object Index { const val path = "" }
+    }
 }
 
 /**

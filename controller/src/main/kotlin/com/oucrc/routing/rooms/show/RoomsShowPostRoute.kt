@@ -1,4 +1,4 @@
-package com.oucrc.routing.room.show
+package com.oucrc.routing.rooms.show
 
 import com.oucrc.ext.getParameter
 import com.oucrc.ext.getRequest
@@ -14,7 +14,7 @@ import room.RoomId
 import room.UpdateRoomUseCase
 import user.UserId
 
-fun Route.roomShowPost(path: String, params: String) {
+fun Route.roomsShowPost(path: String, params: String) {
     val updateRoomUseCase by inject<UpdateRoomUseCase>()
     post(path) {
         call.getParameter<String>(params, errorMessage = "Invalid room id.")

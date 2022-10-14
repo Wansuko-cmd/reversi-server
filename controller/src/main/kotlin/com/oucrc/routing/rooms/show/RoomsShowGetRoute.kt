@@ -1,4 +1,4 @@
-package com.oucrc.routing.room.show
+package com.oucrc.routing.rooms.show
 
 import com.oucrc.ext.getParameter
 import com.oucrc.serializable.ExceptionSerializable
@@ -11,7 +11,7 @@ import org.koin.ktor.ext.inject
 import room.GetRoomByIdUseCase
 import room.RoomId
 
-fun Route.roomShowGet(path: String, params: String) {
+fun Route.roomsShowGet(path: String, params: String) {
     val getRoomByIdUseCase by inject<GetRoomByIdUseCase>()
 
     get(path) {

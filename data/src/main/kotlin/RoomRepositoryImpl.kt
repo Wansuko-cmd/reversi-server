@@ -14,8 +14,8 @@ class RoomRepositoryImpl(
 ) : RoomRepository {
     private val rooms = mutableListOf<Room>(
         Room.create(
-            User(UserId("UserId1"), UserName("UserName1")),
-            User(UserId("UserId2"), UserName("UserName2")),
+            User.reconstruct(UserId("UserId1"), UserName("UserName1")),
+            User.reconstruct(UserId("UserId2"), UserName("UserName2")),
         )
     )
 

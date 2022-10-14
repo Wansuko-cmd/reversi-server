@@ -9,14 +9,23 @@ import room.GetRoomByIdUseCase
 import room.GetRoomsUseCase
 import room.RoomRepository
 import room.PlacePieceInRoomUseCase
+import user.CreateUserUseCase
+import user.GetUserByIdUseCase
+import user.GetUsersUseCase
 import user.UserRepository
 
 fun Application.koinPlugins() {
     val module = module {
         /*** UseCase ***/
+        // Room
         single<GetRoomsUseCase> { GetRoomsUseCase(get()) }
         single<GetRoomByIdUseCase> { GetRoomByIdUseCase(get()) }
         single<PlacePieceInRoomUseCase> { PlacePieceInRoomUseCase(get()) }
+
+        // User
+        single<GetUsersUseCase> { GetUsersUseCase(get()) }
+        single<GetUserByIdUseCase> { GetUserByIdUseCase(get()) }
+        single<CreateUserUseCase> { CreateUserUseCase(get()) }
 
         /*** Repository ***/
         single<RoomRepository> { RoomRepositoryImpl() }

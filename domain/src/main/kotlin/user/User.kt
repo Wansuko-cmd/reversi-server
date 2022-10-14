@@ -12,6 +12,11 @@ class User private constructor(
                 id = UserId(UUID.randomUUID().toString()),
                 name = name,
             )
+        fun reconstruct(id: UserId, name: UserName) =
+            User(
+                id = id,
+                name = name,
+            )
     }
 }
 

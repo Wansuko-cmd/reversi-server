@@ -33,7 +33,8 @@ class RoomRepositoryImpl(
 
     override suspend fun upsert(room: Room): ApiResult<Unit, DomainException> =
         withContext(dispatcher) {
-            rooms.add(room)
+            val index = rooms.indexOfFirst { it.id == room.id }
+            if (index != -1) rooms[index] = room else rooms.add(room)
             ApiResult.Success(Unit)
         }
 }

@@ -20,6 +20,14 @@ inline fun <T, E, NT> ApiResult<T, E>.map(block: (T) -> NT): ApiResult<NT, E> =
         is ApiResult.Failure -> this
     }
 
+inline fun <T, E, NT> ApiResult<T, E>.flatMap(
+    block: (T) -> ApiResult<NT, E>,
+): ApiResult<NT, E> =
+    when (this) {
+        is ApiResult.Success -> block(value)
+        is ApiResult.Failure -> this
+    }
+
 inline fun <T, E, NE> ApiResult<T, E>.mapFailure(block: (E) -> NE): ApiResult<T, NE> =
     when (this) {
         is ApiResult.Success -> this

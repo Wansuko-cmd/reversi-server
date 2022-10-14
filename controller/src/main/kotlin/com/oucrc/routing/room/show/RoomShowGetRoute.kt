@@ -3,11 +3,7 @@ package com.oucrc.routing.room.show
 import com.oucrc.ext.getParameter
 import com.oucrc.serializable.ExceptionSerializable
 import com.oucrc.serializable.RoomSerializable
-import com.wsr.result.consume
-import com.wsr.result.flatMap
-import com.wsr.result.map
-import com.wsr.result.mapBoth
-import io.ktor.http.*
+import com.wsr.result.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -15,7 +11,7 @@ import org.koin.ktor.ext.inject
 import room.GetRoomByIdUseCase
 import room.RoomId
 
-fun Route.roomShow(path: String, params: String) {
+fun Route.roomShowGet(path: String, params: String) {
     val getRoomByIdUseCase by inject<GetRoomByIdUseCase>()
 
     get(path) {
@@ -31,5 +27,3 @@ fun Route.roomShow(path: String, params: String) {
             )
     }
 }
-
-

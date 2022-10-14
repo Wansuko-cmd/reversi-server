@@ -1,7 +1,10 @@
 package room
 
 import Board
+import DomainException
+import com.wsr.result.ApiResult
 import user.User
+import user.UserId
 import java.util.UUID
 
 class Room private constructor(
@@ -11,10 +14,19 @@ class Room private constructor(
     val board: Board,
     val next: Cell.Piece?,
 ) {
-    fun place(row: Int, column: Int): Room {
-        if (next == null) return this
+    fun isNextUser(userId: UserId) = when(next) {
+        is Cell.Piece.Black -> userId == black.id
+        is Cell.Piece.White -> userId == white.id
+        else -> false
+    }
+    fun place(row: Int, column: Int): ApiResult<Room, DomainException> {
+        if (next == null) {
+            return ApiResult.Failure(DomainException.ValidationException("Finished."))
+        }
         val coordinate = board.Coordinate(row, column)
-        if (!board.isPlaceable(coordinate, next)) return this
+        if (!board.isPlaceable(coordinate, next)) {
+            return ApiResult.Failure(DomainException.ValidationException("This isn't placeable."))
+        }
 
         val placedBoard = board.place(coordinate, next)
         val next = when {
@@ -28,7 +40,7 @@ class Room private constructor(
             white = white,
             next = next,
             board = placedBoard
-        )
+        ).let { ApiResult.Success(it) }
     }
 
     companion object {

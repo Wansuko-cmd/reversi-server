@@ -13,6 +13,10 @@ sealed interface Routing {
     object User : Routing {
         const val path = "users"
         object Index { const val path = "" }
+        object Show {
+            const val userId = "userId"
+            const val path = "{$userId}"
+        }
     }
 }
 

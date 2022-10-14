@@ -8,7 +8,7 @@ import org.koin.ktor.plugin.Koin
 import room.GetRoomByIdUseCase
 import room.GetRoomsUseCase
 import room.RoomRepository
-import room.UpdateRoomUseCase
+import room.PlacePieceInRoomUseCase
 import user.UserRepository
 
 fun Application.koinPlugins() {
@@ -16,7 +16,7 @@ fun Application.koinPlugins() {
         /*** UseCase ***/
         single<GetRoomsUseCase> { GetRoomsUseCase(get()) }
         single<GetRoomByIdUseCase> { GetRoomByIdUseCase(get()) }
-        single<UpdateRoomUseCase> { UpdateRoomUseCase(get()) }
+        single<PlacePieceInRoomUseCase> { PlacePieceInRoomUseCase(get()) }
 
         /*** Repository ***/
         single<RoomRepository> { RoomRepositoryImpl() }

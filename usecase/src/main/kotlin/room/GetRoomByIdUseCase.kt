@@ -13,6 +13,7 @@ class GetRoomByIdUseCase(
 ) {
     suspend operator fun invoke(id: RoomId): ApiResult<RoomUseCaseModel, DomainException> =
         withContext(dispatcher) {
-            roomRepository.getById(id).map { RoomUseCaseModel.from(it) }
+            roomRepository.getById(id)
+                .map { room -> RoomUseCaseModel.from(room) }
         }
 }

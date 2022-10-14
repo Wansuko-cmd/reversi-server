@@ -11,17 +11,17 @@ import io.ktor.server.routing.*
 import kotlinx.serialization.SerialName
 import org.koin.ktor.ext.inject
 import room.RoomId
-import room.UpdateRoomUseCase
+import room.PlacePieceInRoomUseCase
 import user.UserId
 
-fun Route.roomsShowPost(path: String, params: String) {
-    val updateRoomUseCase by inject<UpdateRoomUseCase>()
+fun Route.roomsShowPost(path: String, param: String) {
+    val placePieceInRoomUseCase by inject<PlacePieceInRoomUseCase>()
     post(path) {
-        call.getParameter<String>(params, errorMessage = "Invalid room id.")
+        call.getParameter<String>(param, errorMessage = "Invalid room id.")
             .flatMap { id ->
                 call.getRequest<RoomShowPostRequest>(errorMessage = "Invalid request.")
                     .map { (userId, row, column) ->
-                        updateRoomUseCase(RoomId(id), row, column, UserId(userId))
+                        placePieceInRoomUseCase(RoomId(id), row, column, UserId(userId))
                     }
             }
             .mapFailure { ExceptionSerializable.from(it) }

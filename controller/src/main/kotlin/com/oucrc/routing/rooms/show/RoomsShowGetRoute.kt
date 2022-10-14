@@ -11,11 +11,11 @@ import org.koin.ktor.ext.inject
 import room.GetRoomByIdUseCase
 import room.RoomId
 
-fun Route.roomsShowGet(path: String, params: String) {
+fun Route.roomsShowGet(path: String, param: String) {
     val getRoomByIdUseCase by inject<GetRoomByIdUseCase>()
 
     get(path) {
-        call.getParameter<String>(params, errorMessage = "Invalid room id.")
+        call.getParameter<String>(param, errorMessage = "Invalid room id.")
             .flatMap { id -> getRoomByIdUseCase(RoomId(id)) }
             .mapBoth(
                 success = { room -> RoomSerializable.from(room) },

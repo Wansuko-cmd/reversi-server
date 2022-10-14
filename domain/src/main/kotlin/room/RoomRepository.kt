@@ -1,7 +1,10 @@
 package room
 
+import DomainException
+import com.wsr.result.ApiResult
+
 interface RoomRepository {
-    suspend fun getAll(): List<Room>
-    suspend fun getById(id: RoomId): Room
-    suspend fun upsert(room: Room)
+    suspend fun getAll(): ApiResult<List<Room>, DomainException>
+    suspend fun getById(id: RoomId): ApiResult<Room, DomainException>
+    suspend fun upsert(room: Room): ApiResult<Unit, DomainException>
 }

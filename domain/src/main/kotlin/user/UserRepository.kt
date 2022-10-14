@@ -1,7 +1,10 @@
 package user
 
+import DomainException
+import com.wsr.result.ApiResult
+
 interface UserRepository {
-    suspend fun getAll(): List<User>
-    suspend fun getById(id: UserId): User
-    suspend fun insert(user: User)
+    suspend fun getAll(): ApiResult<List<User>, DomainException>
+    suspend fun getById(id: UserId): ApiResult<User, DomainException>
+    suspend fun insert(user: User): ApiResult<Unit, DomainException>
 }

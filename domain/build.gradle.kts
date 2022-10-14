@@ -3,5 +3,6 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":utils"))
     testImplementation(libs.bundles.test)
 }

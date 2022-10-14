@@ -1,6 +1,10 @@
 package com.oucrc.routing.room.index
 
+import com.oucrc.serializable.ExceptionSerializable
 import com.oucrc.serializable.RoomSerializable
+import com.wsr.result.consume
+import com.wsr.result.map
+import com.wsr.result.mapBoth
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -12,7 +16,13 @@ fun Route.roomIndex(path: String) {
 
     get(path) {
         getRoomsUseCase()
-            .map { RoomSerializable.from(it) }
-            .also { call.respond(it) }
+            .mapBoth(
+                success = { rooms -> rooms.map { RoomSerializable.from(it) } },
+                failure = { ExceptionSerializable.from(it) }
+            )
+            .consume(
+                success = { rooms -> call.respond(rooms) },
+                failure = { (message, status) -> call.respond(status, message) }
+            )
     }
 }

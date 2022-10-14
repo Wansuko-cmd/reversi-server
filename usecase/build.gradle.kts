@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":utils"))
     implementation(libs.coroutine)
     testImplementation(libs.bundles.test)
 }

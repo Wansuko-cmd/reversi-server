@@ -1,9 +1,15 @@
+package repository
+
+import DomainException
 import com.wsr.result.ApiResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.jetbrains.exposed.sql.ResultRow
+import table.UserModel
 import user.User
 import user.UserId
+import user.UserName
 import user.UserRepository
 
 class UserRepositoryImpl(
@@ -30,3 +36,8 @@ class UserRepositoryImpl(
             ApiResult.Success(Unit)
         }
 }
+
+fun ResultRow.toUser() = User.reconstruct(
+    id = UserId(this[UserModel.id]),
+    name = UserName(this[UserModel.name]),
+)

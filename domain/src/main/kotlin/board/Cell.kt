@@ -11,12 +11,27 @@ sealed interface Cell {
         object White : Piece {
             override fun reverse(): Piece = Black
         }
+        companion object {
+            fun from(value: Int) = when (value) {
+                1 -> Black
+                2 -> White
+                else -> throw DomainException.SystemException("Int to Piece validate error.", null)
+            }
+        }
     }
 
     fun toInt() = when(this) {
         is Nothing -> 0
         is Piece.Black -> 1
         is Piece.White -> 2
+    }
+
+    companion object {
+        fun from(value: Int) = when (value) {
+            0 -> Nothing
+            1, 2 -> Piece.from(value)
+            else -> throw DomainException.SystemException("Int to Cell validate error.", null)
+        }
     }
 }
 

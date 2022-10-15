@@ -1,10 +1,12 @@
 package com.oucrc.plugins
 
-import RoomRepositoryImpl
-import UserRepositoryImpl
+import db.DevDB
+import repository.UserRepositoryImpl
 import io.ktor.server.application.*
+import org.jetbrains.exposed.sql.Database
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
+import repository.RoomRepositoryImpl
 import room.GetRoomByIdUseCase
 import room.GetRoomsUseCase
 import room.RoomRepository
@@ -28,8 +30,11 @@ fun Application.koinPlugins() {
         single<CreateUserUseCase> { CreateUserUseCase(get()) }
 
         /*** Repository ***/
-        single<RoomRepository> { RoomRepositoryImpl() }
+        single<RoomRepository> { RoomRepositoryImpl(get()) }
         single<UserRepository> { UserRepositoryImpl() }
+
+        /*** Database ***/
+        single<Database> { DevDB }
     }
 
     install(Koin) { modules(module) }

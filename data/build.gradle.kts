@@ -8,4 +8,6 @@ dependencies {
     implementation(libs.coroutine)
     implementation(libs.bundles.database)
     implementation(libs.h2)
+
+    testImplementation(libs.bundles.test)
 }

@@ -23,5 +23,8 @@ dependencies {
     implementation(libs.serialization)
     implementation(libs.bundles.ktor)
     implementation(libs.bundles.koin)
+    implementation(libs.h2)
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.jdbc)
     testImplementation(libs.bundles.test)
 }

@@ -51,6 +51,20 @@ class Room private constructor(
             next = Cell.Piece.Black,
             board = Board.create(20),
         )
+
+        fun reconstruct(
+            id: RoomId,
+            black: User,
+            white: User,
+            next: Cell.Piece?,
+            board: Board
+        ) = Room(
+            id = id,
+            black = black,
+            white = white,
+            next = next,
+            board = board,
+        )
     }
 }
 

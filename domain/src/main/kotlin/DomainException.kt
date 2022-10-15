@@ -12,6 +12,6 @@ sealed class DomainException(
 
     class SystemException(
         override val message: String,
-        override val cause: Throwable,
+        override val cause: Throwable?,
     ) : DomainException(message, cause)
 }

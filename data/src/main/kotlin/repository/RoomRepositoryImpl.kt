@@ -5,7 +5,6 @@ import DomainException
 import com.wsr.result.ApiResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import room.Room
@@ -20,42 +19,32 @@ class RoomRepositoryImpl(
 ) : RoomRepository {
 
     override suspend fun getAll(): ApiResult<List<Room>, DomainException> =
-        withContext(dispatcher) {
-            transaction(database) {
-                RoomModel
-                    .selectAll()
-                    .map { it.toRoom(database) }
-                    .let { ApiResult.Success(it) }
-            }
+        runCatchWithTransaction(database, dispatcher) {
+            RoomModel
+                .selectAll()
+                .map { it.toRoom(database) }
         }
 
     override suspend fun getById(id: RoomId): ApiResult<Room, DomainException> =
-        withContext(dispatcher) {
-            transaction(database) {
-                RoomModel
-                    .select { RoomModel.id eq id.value }
-                    .firstOrNull()
-                    ?.toRoom(db)
-                    ?.let { ApiResult.Success(it) }
-                    ?: ApiResult.Failure(DomainException.NoSuchElementException("Room"))
-            }
+        runCatchWithTransaction(database, dispatcher) {
+            RoomModel
+                .select { RoomModel.id eq id.value }
+                .first()
+                .toRoom(db)
         }
 
     override suspend fun update(room: Room): ApiResult<Unit, DomainException> =
-        withContext(dispatcher) {
-            transaction(database) {
-                RoomModel
-                    .update(
-                        where = { RoomModel.id eq room.id.value },
-                        limit = 1,
-                    ) {
-                        it[black] = room.black.id.value
-                        it[white] = room.white.id.value
-                        it[next] = room.next?.toInt()
-                        it[board] = board
-                    }
-                ApiResult.Success(Unit)
-            }
+        runCatchWithTransaction(database, dispatcher) {
+            RoomModel
+                .update(
+                    where = { RoomModel.id eq room.id.value },
+                    limit = 1,
+                ) {
+                    it[black] = room.black.id.value
+                    it[white] = room.white.id.value
+                    it[next] = room.next?.toInt()
+                    it[board] = board
+                }
         }
 }
 

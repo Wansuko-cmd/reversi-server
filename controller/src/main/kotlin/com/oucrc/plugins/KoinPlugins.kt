@@ -1,16 +1,16 @@
 package com.oucrc.plugins
 
 import db.DevDB
-import repository.UserRepositoryImpl
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
 import repository.RoomRepositoryImpl
+import repository.UserRepositoryImpl
 import room.GetRoomByIdUseCase
 import room.GetRoomsUseCase
-import room.RoomRepository
 import room.PlacePieceInRoomUseCase
+import room.RoomRepository
 import user.CreateUserUseCase
 import user.GetUserByIdUseCase
 import user.GetUsersUseCase
@@ -31,7 +31,7 @@ fun Application.koinPlugins() {
 
         /*** Repository ***/
         single<RoomRepository> { RoomRepositoryImpl(get()) }
-        single<UserRepository> { UserRepositoryImpl() }
+        single<UserRepository> { UserRepositoryImpl(get()) }
 
         /*** Database ***/
         single<Database> { DevDB }

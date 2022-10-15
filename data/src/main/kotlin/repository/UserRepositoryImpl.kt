@@ -5,7 +5,7 @@ import com.wsr.result.ApiResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.*
 import table.UserModel
 import user.User
 import user.UserId
@@ -13,27 +13,31 @@ import user.UserName
 import user.UserRepository
 
 class UserRepositoryImpl(
+    private val database: Database,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : UserRepository {
-    private val users = mutableListOf<User>()
-
     override suspend fun getAll(): ApiResult<List<User>, DomainException> =
-        withContext(dispatcher) {
-            ApiResult.Success(users)
+        runCatchWithTransaction(database, dispatcher) {
+            UserModel
+                .selectAll()
+                .map { it.toUser() }
         }
 
     override suspend fun getById(id: UserId): ApiResult<User, DomainException> =
-        withContext(dispatcher) {
-            users
-                .firstOrNull { it.id == id }
-                ?.let { ApiResult.Success(it) }
-                ?: ApiResult.Failure(DomainException.NoSuchElementException("User"))
+        runCatchWithTransaction(database, dispatcher) {
+            UserModel
+                .select { UserModel.id eq id.value }
+                .first()
+                .toUser()
         }
 
     override suspend fun insert(user: User): ApiResult<Unit, DomainException> =
-        withContext(dispatcher) {
-            users.add(user)
-            ApiResult.Success(Unit)
+        runCatchWithTransaction(database, dispatcher) {
+            UserModel
+                .insert {
+                    it[id] = user.id.value
+                    it[name] = user.name.value
+                }
         }
 }
 

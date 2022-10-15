@@ -40,7 +40,6 @@ koin-logger = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koin
 
 # exposed
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
-exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
 exposed-java-time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed" }
 
@@ -63,7 +62,7 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 [bundles]
 ktor = ["ktor-core", "ktor-netty", "ktor-serialization", "ktor-content-negotiation", "ktor-logback"]
 koin = ["koin-core", "koin-ktor", "koin-logger"]
-database = ["exposed-core", "exposed-dao", "exposed-jdbc", "exposed-java-time", "flyway-core", "hikari"]
+database = ["exposed-core", "exposed-jdbc", "exposed-java-time", "flyway-core", "hikari"]
 test = ["kotlin-test", "kotlin-junit", "kotlin-coroutine-test", "truth", "mockk"]
 
 [plugins]

@@ -8,15 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-import repository.toUser
 import room.Room
 import room.RoomId
 import room.RoomRepository
 import table.RoomModel
 import table.UserModel
-import user.User
-import user.UserId
-import user.UserName
 
 class RoomRepositoryImpl(
     private val database: Database,

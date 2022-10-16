@@ -3,15 +3,19 @@ package com.oucrc.routing.rooms.show
 import com.oucrc.ext.getParameter
 import com.oucrc.ext.getRequest
 import com.oucrc.serializable.ExceptionSerializable
-import com.wsr.result.*
-import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import com.wsr.result.consume
+import com.wsr.result.flatMap
+import com.wsr.result.map
+import com.wsr.result.mapFailure
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.application.call
+import io.ktor.server.response.respond
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.post
 import kotlinx.serialization.SerialName
 import org.koin.ktor.ext.inject
-import room.RoomId
 import room.PlacePieceInRoomUseCase
+import room.RoomId
 import user.UserId
 
 fun Route.roomsShowPost(path: String, param: String) {
@@ -38,4 +42,3 @@ data class RoomShowPostRequest(
     val row: Int,
     val column: Int,
 )
-

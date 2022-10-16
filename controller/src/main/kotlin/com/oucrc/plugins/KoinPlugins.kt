@@ -2,13 +2,14 @@ package com.oucrc.plugins
 
 import RoomRepositoryImpl
 import UserRepositoryImpl
-import io.ktor.server.application.*
+import io.ktor.server.application.Application
+import io.ktor.server.application.install
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
 import room.GetRoomByIdUseCase
 import room.GetRoomsUseCase
-import room.RoomRepository
 import room.PlacePieceInRoomUseCase
+import room.RoomRepository
 import user.CreateUserUseCase
 import user.GetUserByIdUseCase
 import user.GetUsersUseCase

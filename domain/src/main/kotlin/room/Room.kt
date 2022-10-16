@@ -14,7 +14,7 @@ class Room private constructor(
     val board: Board,
     val next: Cell.Piece?,
 ) {
-    fun isNextUser(userId: UserId) = when(next) {
+    fun isNextUser(userId: UserId) = when (next) {
         is Cell.Piece.Black -> userId == black.id
         is Cell.Piece.White -> userId == white.id
         else -> false

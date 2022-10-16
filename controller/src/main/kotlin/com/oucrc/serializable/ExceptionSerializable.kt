@@ -1,7 +1,7 @@
 package com.oucrc.serializable
 
 import DomainException
-import io.ktor.http.*
+import io.ktor.http.HttpStatusCode
 
 @kotlinx.serialization.Serializable
 class ExceptionSerializable(

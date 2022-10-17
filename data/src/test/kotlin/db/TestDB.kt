@@ -12,8 +12,6 @@ val TestDB: Database = run {
         .also { it.seeding() }
 }
 
-
-
 private fun hikari(): HikariDataSource {
     val config = HikariConfig().apply {
         driverClassName = "org.h2.Driver"

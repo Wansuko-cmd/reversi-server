@@ -1,7 +1,8 @@
 package com.oucrc.plugins
 
 import db.DevDB
-import io.ktor.server.application.*
+import io.ktor.server.application.Application
+import io.ktor.server.application.install
 import org.jetbrains.exposed.sql.Database
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin

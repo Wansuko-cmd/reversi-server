@@ -20,7 +20,7 @@ sealed interface Cell {
         }
     }
 
-    fun toInt() = when(this) {
+    fun toInt() = when (this) {
         is Nothing -> 0
         is Piece.Black -> 1
         is Piece.White -> 2

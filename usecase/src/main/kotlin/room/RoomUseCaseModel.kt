@@ -17,7 +17,7 @@ data class RoomUseCaseModel(
                 id = room.id,
                 black = UserUseCaseModel.from(room.black),
                 white = UserUseCaseModel.from(room.white),
-                next = when(room.next) {
+                next = when (room.next) {
                     is Cell.Piece.Black -> UserUseCaseModel.from(room.black)
                     is Cell.Piece.White -> UserUseCaseModel.from(room.white)
                     else -> null

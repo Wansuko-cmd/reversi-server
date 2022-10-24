@@ -10,6 +10,10 @@ sealed class DomainException(
         override val message: String,
     ) : DomainException(message)
 
+    class NotPlaceableCoordinateException(
+        override val message: String,
+    ) : DomainException(message)
+
     class SystemException(
         override val message: String,
         override val cause: Throwable?,

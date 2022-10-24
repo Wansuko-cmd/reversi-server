@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -35,6 +36,16 @@ class RoomRepositoryImpl(
                 .select { RoomModel.id eq id.value }
                 .first()
                 .toRoom(db)
+        }
+
+    override suspend fun insert(room: Room): ApiResult<Unit, DomainException> =
+        runCatchWithTransaction(database, dispatcher) {
+            RoomModel.insert {
+                it[black] = room.black.id.value
+                it[white] = room.white.id.value
+                it[next] = room.next?.toInt()
+                it[board] = board
+            }
         }
 
     override suspend fun update(room: Room): ApiResult<Unit, DomainException> =

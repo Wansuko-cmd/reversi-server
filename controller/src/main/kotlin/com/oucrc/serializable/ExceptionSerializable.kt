@@ -12,6 +12,8 @@ class ExceptionSerializable(
             when (exception) {
                 is DomainException.NoSuchElementException ->
                     ExceptionSerializable(exception.message) to HttpStatusCode.BadRequest
+                is DomainException.NotPlaceableCoordinateException ->
+                    ExceptionSerializable(exception.message) to HttpStatusCode.UnprocessableEntity
                 is DomainException.ValidationException ->
                     ExceptionSerializable(exception.message) to HttpStatusCode.BadRequest
                 is DomainException.SystemException ->

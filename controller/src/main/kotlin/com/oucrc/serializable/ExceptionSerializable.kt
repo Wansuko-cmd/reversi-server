@@ -12,9 +12,13 @@ class ExceptionSerializable(
             when (exception) {
                 is DomainException.NoSuchElementException ->
                     ExceptionSerializable(exception.message) to HttpStatusCode.BadRequest
+                is DomainException.FinishedGameException ->
+                    ExceptionSerializable(exception.message) to HttpStatusCode.Conflict
                 is DomainException.NotPlaceableCoordinateException ->
                     ExceptionSerializable(exception.message) to HttpStatusCode.UnprocessableEntity
-                is DomainException.ValidationException ->
+                is DomainException.NoMoreWaitMattingUserException ->
+                    ExceptionSerializable(exception.message) to HttpStatusCode.Conflict
+                is DomainException.RequestValidationException ->
                     ExceptionSerializable(exception.message) to HttpStatusCode.BadRequest
                 is DomainException.SystemException ->
                     ExceptionSerializable(exception.message) to HttpStatusCode.InternalServerError

@@ -12,7 +12,7 @@ inline fun <reified T> ApplicationCall.getParameter(
 ): ApiResult<T, DomainException> =
     (this.parameters[param] as? T)
         ?.let { ApiResult.Success(it) }
-        ?: ApiResult.Failure(DomainException.ValidationException(errorMessage))
+        ?: ApiResult.Failure(DomainException.RequestValidationException(errorMessage))
 
 suspend inline fun <reified T : Any> ApplicationCall.getRequest(
     errorMessage: String = "validation error",
@@ -20,5 +20,5 @@ suspend inline fun <reified T : Any> ApplicationCall.getRequest(
     try {
         ApiResult.Success(this.receive())
     } catch (e: CannotTransformContentToTypeException) {
-        ApiResult.Failure(DomainException.ValidationException(errorMessage))
+        ApiResult.Failure(DomainException.RequestValidationException(errorMessage))
     }

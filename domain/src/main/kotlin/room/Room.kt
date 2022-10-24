@@ -22,7 +22,7 @@ class Room private constructor(
 
     fun place(row: Int, column: Int): ApiResult<Room, DomainException> {
         if (next == null) {
-            return ApiResult.Failure(DomainException.ValidationException("Finished."))
+            return ApiResult.Failure(DomainException.FinishedGameException("This is finished game."))
         }
         val coordinate = board.Coordinate(row, column)
         if (!board.isPlaceable(coordinate, next)) {

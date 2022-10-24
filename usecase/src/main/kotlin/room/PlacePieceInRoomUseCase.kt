@@ -29,6 +29,6 @@ class PlacePieceInRoomUseCase(
         userId: UserId,
     ): ApiResult<Room, DomainException> = this.flatMap { room ->
         if (room.isNextUser(userId)) ApiResult.Success(room)
-        else ApiResult.Failure(DomainException.ValidationException("You're not next user."))
+        else ApiResult.Failure(DomainException.RequestValidationException("You're not next user."))
     }
 }

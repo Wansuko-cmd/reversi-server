@@ -33,7 +33,11 @@ class CreateRoomUseCase(
                 .let { it[0] to it[1] }
                 .let { ApiResult.Success(it) }
         } catch (e: IndexOutOfBoundsException) {
-            ApiResult.Failure(DomainException.SystemException("", e))
+            ApiResult.Failure(
+                DomainException.NoMoreWaitMattingUserException(
+                    message = "There isn't match user waiting matting here.",
+                ),
+            )
         } catch (e: Exception) {
             ApiResult.Failure(DomainException.SystemException("", e))
         }

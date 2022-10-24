@@ -58,7 +58,7 @@ class RoomRepositoryImpl(
                     it[black] = room.black.id.value
                     it[white] = room.white.id.value
                     it[next] = room.next?.toInt()
-                    it[board] = board
+                    it[board] = room.board
                 }
         }
 }
@@ -68,5 +68,5 @@ private fun ResultRow.toRoom(db: Database) = Room.reconstruct(
     black = transaction(db) { UserModel.select { UserModel.id eq this@toRoom[RoomModel.black] } }.first().toUser(),
     white = transaction(db) { UserModel.select { UserModel.id eq this@toRoom[RoomModel.white] } }.first().toUser(),
     next = this[RoomModel.next]?.let(Cell.Piece::from),
-    board = this[RoomModel.board]
+    board = this[RoomModel.board],
 )

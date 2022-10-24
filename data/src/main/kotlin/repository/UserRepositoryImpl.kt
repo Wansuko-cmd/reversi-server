@@ -9,11 +9,13 @@ import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
+import room.RoomId
 import table.UserModel
 import user.User
 import user.UserId
 import user.UserName
 import user.UserRepository
+import user.UserStatus
 
 class UserRepositoryImpl(
     private val database: Database,
@@ -47,4 +49,7 @@ class UserRepositoryImpl(
 fun ResultRow.toUser() = User.reconstruct(
     id = UserId(this[UserModel.id]),
     name = UserName(this[UserModel.name]),
+    status = this[UserModel.userStatus]
+        ?.let { UserStatus.OnMatch(RoomId(it)) }
+        ?: UserStatus.WaitMatting
 )

@@ -9,6 +9,7 @@ import table.RoomModel
 import user.User
 import user.UserId
 import user.UserName
+import user.UserStatus
 
 object RoomDatabaseSeeder : DatabaseSeeder {
     override fun seeding(database: Database) {
@@ -29,10 +30,12 @@ object RoomDatabaseSeeder : DatabaseSeeder {
             black = User.reconstruct(
                 id = UserId("UserId$index"),
                 name = UserName("UserName$index"),
+                status = UserStatus.OnMatch(roomId = RoomId("RoomId$index")),
             ),
             white = User.reconstruct(
                 id = UserId("UserId$index"),
                 name = UserName("UserName$index"),
+                status = UserStatus.OnMatch(roomId = RoomId("RoomId$index")),
             ),
             next = Cell.Piece.Black,
             board = Board.create(20),

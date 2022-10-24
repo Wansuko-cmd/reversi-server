@@ -7,11 +7,14 @@ import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
 import javax.sql.DataSource
 
-val DevDB: Database = run {
+private var db: Database? = null
+
+val DevDB: Database = db ?: run {
     val pool = hikari()
     Database.connect(pool)
         .also { pool.migrate() }
         .also { it.seeding() }
+        .also { db = it }
 }
 
 private fun hikari(): HikariDataSource {

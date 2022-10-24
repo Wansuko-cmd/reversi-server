@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import user.User
 import user.UserRepository
+import user.UserStatus
 
 class CreateRoomUseCase(
     private val roomRepository: RoomRepository,
@@ -19,6 +20,7 @@ class CreateRoomUseCase(
         withContext(dispatcher) {
             userRepository
                 .getAll()
+                .map { users -> users.filter { it.status is UserStatus.WaitMatting } }
                 .flatMap { users -> users.takeTwoUsers() }
                 .map { users -> Room.create(users.first, users.second) }
                 .flatMap { roomRepository.insert(it) }

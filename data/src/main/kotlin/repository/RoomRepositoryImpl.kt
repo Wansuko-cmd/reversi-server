@@ -44,7 +44,7 @@ class RoomRepositoryImpl(
                 it[black] = room.black.id.value
                 it[white] = room.white.id.value
                 it[next] = room.next?.toInt()
-                it[board] = board
+                it[board] = room.board
             }
         }
 

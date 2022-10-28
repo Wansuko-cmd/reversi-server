@@ -1,7 +1,7 @@
 package user
 
-import java.util.UUID
 import room.RoomId
+import java.util.UUID
 
 class User private constructor(
     val id: UserId,

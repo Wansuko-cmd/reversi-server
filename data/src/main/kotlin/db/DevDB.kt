@@ -20,7 +20,7 @@ private fun hikari(): HikariDataSource {
         jdbcUrl = "jdbc:h2:mem:dev_db;DB_CLOSE_DELAY=-1"
         username = ""
         password = ""
-        maximumPoolSize = 3
+        maximumPoolSize = MAXIMUM_POOL_SIZE
         isAutoCommit = false
         validate()
     }
@@ -35,3 +35,5 @@ fun DataSource.migrate() {
     flyway.info()
     flyway.migrate()
 }
+
+private const val MAXIMUM_POOL_SIZE = 3

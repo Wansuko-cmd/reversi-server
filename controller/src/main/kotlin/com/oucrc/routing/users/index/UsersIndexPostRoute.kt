@@ -2,9 +2,10 @@ package com.oucrc.routing.users.index
 
 import com.oucrc.ext.getRequest
 import com.oucrc.serializable.ExceptionSerializable
+import com.oucrc.serializable.UserSerializable
 import com.wsr.result.consume
 import com.wsr.result.flatMap
-import com.wsr.result.mapFailure
+import com.wsr.result.mapBoth
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
@@ -20,7 +21,10 @@ fun Route.usersIndexPost(path: String) {
     post(path) {
         call.getRequest<UsersIndexPostRequest>("Invalid request.")
             .flatMap { request -> createUserUseCase(UserName(request.userName)) }
-            .mapFailure { ExceptionSerializable.from(it) }
+            .mapBoth(
+                success = { user -> UserSerializable.from(user) },
+                failure = { ExceptionSerializable.from(it) },
+            )
             .consume(
                 success = { user -> call.respond(user) },
                 failure = { (message, status) -> call.respond(status, message) }

@@ -12,9 +12,11 @@ class CreateUserUseCase(
     private val userRepository: UserRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) {
-    suspend operator fun invoke(userName: UserName): ApiResult<User, DomainException> =
+    suspend operator fun invoke(userName: UserName): ApiResult<UserUseCaseModel, DomainException> =
         withContext(dispatcher) {
             ApiResult.Success(User.create(userName))
-                .flatMap { user -> userRepository.insert(user).map { user } }
+                .flatMap { user ->
+                    userRepository.insert(user).map { UserUseCaseModel.from(user) }
+                }
         }
 }

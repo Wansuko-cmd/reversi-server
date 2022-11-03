@@ -9,6 +9,7 @@ import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.update
 import room.RoomId
 import table.UserModel
 import user.User
@@ -42,6 +43,21 @@ class UserRepositoryImpl(
                 .insert {
                     it[id] = user.id.value
                     it[name] = user.name.value
+                }
+        }
+
+    override suspend fun update(user: User): ApiResult<Unit, DomainException> =
+        runCatchWithTransaction(database, dispatcher) {
+            UserModel
+                .update(
+                    where = { UserModel.id eq user.id.value },
+                    limit = 1,
+                ) {
+                    it[name] = user.name.value
+                    it[userStatus] = when (user.status) {
+                        is UserStatus.OnMatch -> (user.status as UserStatus.OnMatch).roomId.value
+                        is UserStatus.WaitMatting -> null
+                    }
                 }
         }
 }

@@ -8,6 +8,7 @@ import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
 import repository.RoomRepositoryImpl
 import repository.UserRepositoryImpl
+import room.CreateRoomUseCase
 import room.GetRoomByIdUseCase
 import room.GetRoomsUseCase
 import room.PlacePieceInRoomUseCase
@@ -21,6 +22,7 @@ fun Application.koinPlugins() {
     val module = module {
         /*** UseCase ***/
         // Room
+        single<CreateRoomUseCase> { CreateRoomUseCase(get(), get()) }
         single<GetRoomsUseCase> { GetRoomsUseCase(get()) }
         single<GetRoomByIdUseCase> { GetRoomByIdUseCase(get()) }
         single<PlacePieceInRoomUseCase> { PlacePieceInRoomUseCase(get()) }

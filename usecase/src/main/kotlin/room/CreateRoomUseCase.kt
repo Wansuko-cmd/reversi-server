@@ -4,6 +4,7 @@ import DomainException
 import com.wsr.result.ApiResult
 import com.wsr.result.flatMap
 import com.wsr.result.map
+import com.wsr.result.sequence
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,15 +23,24 @@ class CreateRoomUseCase(
                 .getAll()
                 .map { users -> users.filter { it.status is UserStatus.WaitMatting } }
                 .flatMap { users -> users.takeTwoUsers() }
-                .map { users -> Room.create(users.first, users.second) }
-                .flatMap { roomRepository.insert(it) }
+                .map { users -> users.map { Room.create(it.first, it.second) } }
+                .map { rooms ->
+                    rooms.map {
+                        userRepository.update(it.black)
+                        userRepository.update(it.white)
+                    }.flatMap { rooms }
+                }
+                .flatMap { users ->
+                    users.map { roomRepository.insert(it) }
+                        .sequence()
+                        .map { }
+                }
         }
 
-    private fun List<User>.takeTwoUsers(): ApiResult<Pair<User, User>, DomainException> =
+    private fun List<User>.takeTwoUsers(): ApiResult<List<Pair<User, User>>, DomainException> =
         try {
             this.shuffled()
-                .take(2)
-                .let { it[0] to it[1] }
+                .chunked(2) { users -> users[0] to users[1] }
                 .let { ApiResult.Success(it) }
         } catch (e: IndexOutOfBoundsException) {
             ApiResult.Failure(

@@ -32,7 +32,7 @@ class CreateRoomUseCase(
     private fun List<User>.takeTwoUsers(): ApiResult<List<Pair<User, User>>, DomainException> =
         try {
             this.shuffled()
-                .chunked(2) { users -> users[0] to users[1] }
+                .windowed(size = 2, step = 2) { users -> users[0] to users[1] }
                 .let { ApiResult.Success(it) }
         } catch (e: IndexOutOfBoundsException) {
             ApiResult.Failure(

@@ -25,7 +25,7 @@ fun Application.koinPlugins() {
         single<CreateRoomUseCase> { CreateRoomUseCase(get(), get()) }
         single<GetRoomsUseCase> { GetRoomsUseCase(get()) }
         single<GetRoomByIdUseCase> { GetRoomByIdUseCase(get()) }
-        single<PlacePieceInRoomUseCase> { PlacePieceInRoomUseCase(get()) }
+        single<PlacePieceInRoomUseCase> { PlacePieceInRoomUseCase(get(), get()) }
 
         // User
         single<GetUsersUseCase> { GetUsersUseCase(get()) }

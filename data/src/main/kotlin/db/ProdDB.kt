@@ -3,11 +3,11 @@ package db
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import db.seeding.seeding
+import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
-import javax.sql.DataSource
 
-val DevDB: Database by lazy {
+val ProdDB: Database by lazy {
     val pool = hikari()
     Database.connect(pool)
         .also { pool.migrate() }
@@ -17,7 +17,7 @@ val DevDB: Database by lazy {
 private fun hikari(): HikariDataSource {
     val config = HikariConfig().apply {
         driverClassName = "org.h2.Driver"
-        jdbcUrl = "jdbc:h2:mem:dev_db;DB_CLOSE_DELAY=-1"
+        jdbcUrl = "jdbc:postgresql://localhost:5432/postgres;DB_CLOSE_DELAY=-1"
         username = ""
         password = ""
         maximumPoolSize = MAXIMUM_POOL_SIZE

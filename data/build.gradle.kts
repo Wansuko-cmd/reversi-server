@@ -8,6 +8,7 @@ dependencies {
     implementation(libs.coroutine)
     implementation(libs.bundles.database)
     implementation(libs.h2)
+    implementation(libs.postgresql)
 
     testImplementation(libs.bundles.test)
 }

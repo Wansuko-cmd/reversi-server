@@ -41,6 +41,7 @@ class RoomRepositoryImpl(
     override suspend fun insert(room: Room): ApiResult<Unit, DomainException> =
         runCatchWithTransaction(database, dispatcher) {
             RoomModel.insert {
+                it[id] = room.id.value
                 it[black] = room.black.id.value
                 it[white] = room.white.id.value
                 it[next] = room.next?.toInt()

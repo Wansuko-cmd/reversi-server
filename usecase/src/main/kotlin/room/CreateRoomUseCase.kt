@@ -26,8 +26,8 @@ class CreateRoomUseCase(
                 .map { users -> users.map { Room.create(it.first, it.second) } }
                 .map { rooms ->
                     rooms.map {
-                        userRepository.update(it.black)
-                        userRepository.update(it.white)
+                        userRepository.update(it.black.updateStatus(UserStatus.OnMatch(it.id)))
+                        userRepository.update(it.white.updateStatus(UserStatus.OnMatch(it.id)))
                     }.flatMap { rooms }
                 }
                 .flatMap { users ->

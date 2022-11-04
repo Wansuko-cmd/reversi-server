@@ -8,6 +8,12 @@ class User private constructor(
     val name: UserName,
     val status: UserStatus,
 ) {
+    fun updateStatus(status: UserStatus) = reconstruct(
+        id = id,
+        name = name,
+        status = status,
+    )
+
     companion object {
         fun create(name: UserName) =
             User(

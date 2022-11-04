@@ -54,7 +54,7 @@ class Room private constructor(
             black = black,
             white = white,
             next = Cell.Piece.Black,
-            board = Board.create(20),
+            board = Board.create(8),
         )
 
         fun reconstruct(

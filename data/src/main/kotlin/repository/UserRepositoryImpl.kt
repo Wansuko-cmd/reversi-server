@@ -43,6 +43,10 @@ class UserRepositoryImpl(
                 .insert {
                     it[id] = user.id.value
                     it[name] = user.name.value
+                    it[userStatus] = when (user.status) {
+                        is UserStatus.OnMatch -> (user.status as UserStatus.OnMatch).roomId.value
+                        is UserStatus.WaitMatting -> null
+                    }
                 }
         }
 

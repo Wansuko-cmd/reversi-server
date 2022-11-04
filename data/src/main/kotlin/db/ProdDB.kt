@@ -16,8 +16,8 @@ val ProdDB: Database by lazy {
 
 private fun hikari(): HikariDataSource {
     val config = HikariConfig().apply {
-        driverClassName = "org.h2.Driver"
-        jdbcUrl = "jdbc:postgresql://localhost:5432/postgres;DB_CLOSE_DELAY=-1"
+        driverClassName = "org.postgresql.Driver"
+        jdbcUrl = "jdbc:postgresql://localhost:5432/reversivsai"
         username = ""
         password = ""
         maximumPoolSize = MAXIMUM_POOL_SIZE

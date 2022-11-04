@@ -24,17 +24,9 @@ class CreateRoomUseCase(
                 .map { users -> users.filter { it.status is UserStatus.WaitMatting } }
                 .flatMap { users -> users.takeTwoUsers() }
                 .map { users -> users.map { Room.create(it.first, it.second) } }
-                .map { rooms ->
-                    rooms.map {
-                        userRepository.update(it.black.updateStatus(UserStatus.OnMatch(it.id)))
-                        userRepository.update(it.white.updateStatus(UserStatus.OnMatch(it.id)))
-                    }.flatMap { rooms }
-                }
-                .flatMap { users ->
-                    users.map { roomRepository.insert(it) }
-                        .sequence()
-                        .map { }
-                }
+                .insertRooms()
+                .updateUsers()
+                .map { Unit }
         }
 
     private fun List<User>.takeTwoUsers(): ApiResult<List<Pair<User, User>>, DomainException> =
@@ -50,5 +42,20 @@ class CreateRoomUseCase(
             )
         } catch (e: Exception) {
             ApiResult.Failure(DomainException.SystemException("", e))
+        }
+
+    private suspend fun ApiResult<List<Room>, DomainException>.insertRooms(): ApiResult<List<Room>, DomainException> =
+        this.flatMap { rooms ->
+            rooms.map { roomRepository.insert(it) }
+                .sequence()
+                .map { rooms }
+        }
+
+    private suspend fun ApiResult<List<Room>, DomainException>.updateUsers(): ApiResult<List<Room>, DomainException> =
+        this.map { rooms ->
+            rooms.map {
+                userRepository.update(it.black.updateStatus(UserStatus.OnMatch(it.id)))
+                userRepository.update(it.white.updateStatus(UserStatus.OnMatch(it.id)))
+            }.flatMap { rooms }
         }
 }

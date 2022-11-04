@@ -38,7 +38,7 @@ object RoomDatabaseSeeder : DatabaseSeeder {
                 status = UserStatus.OnMatch(roomId = RoomId("RoomId$index")),
             ),
             next = Cell.Piece.Black,
-            board = Board.create(20),
+            board = Board.create(8),
         )
     }
 }

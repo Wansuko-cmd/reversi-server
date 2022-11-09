@@ -1,7 +1,6 @@
 package com.oucrc.plugins
 
 import db.DevDB
-import db.ProdDB
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import org.jetbrains.exposed.sql.Database

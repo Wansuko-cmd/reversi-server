@@ -2,16 +2,14 @@ package db
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import db.seeding.seeding
-import javax.sql.DataSource
 import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
+import javax.sql.DataSource
 
 val ProdDB: Database by lazy {
     val pool = hikari()
     Database.connect(pool)
         .also { pool.migrate() }
-        .also { it.seeding() }
 }
 
 private fun hikari(): HikariDataSource {

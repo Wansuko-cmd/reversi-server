@@ -14,6 +14,14 @@ class Room private constructor(
     val board: Board,
     val next: Cell.Piece?,
 ) {
+    fun winner(): User? = board.count().let { count ->
+        when {
+            count.black > count.white -> black
+            count.white > count.black -> white
+            else -> null
+        }
+    }
+
     fun isNextUser(userId: UserId): Boolean = when (next) {
         is Cell.Piece.Black -> userId == black.id
         is Cell.Piece.White -> userId == white.id

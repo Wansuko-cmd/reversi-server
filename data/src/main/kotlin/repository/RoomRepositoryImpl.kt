@@ -5,6 +5,8 @@ import DomainException
 import com.wsr.result.ApiResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.datetime.*
+import kotlinx.datetime.toJavaLocalDateTime
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insert
@@ -27,6 +29,7 @@ class RoomRepositoryImpl(
         runCatchWithTransaction(database, dispatcher) {
             RoomModel
                 .selectAll()
+                .sortedBy { it[RoomModel.createdAt] }
                 .map { it.toRoom(database) }
         }
 
@@ -46,6 +49,7 @@ class RoomRepositoryImpl(
                 it[white] = room.white.id.value
                 it[next] = room.next?.toInt()
                 it[board] = room.board
+                it[createdAt] = Clock.System.now().toLocalDateTime(TimeZone.UTC).toJavaLocalDateTime()
             }
         }
 
@@ -54,7 +58,6 @@ class RoomRepositoryImpl(
             RoomModel
                 .update(
                     where = { RoomModel.id eq room.id.value },
-                    limit = 1,
                 ) {
                     it[black] = room.black.id.value
                     it[white] = room.white.id.value

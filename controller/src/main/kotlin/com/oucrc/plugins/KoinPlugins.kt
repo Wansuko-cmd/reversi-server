@@ -1,6 +1,7 @@
 package com.oucrc.plugins
 
 import db.DevDB
+import db.ProdDB
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import org.jetbrains.exposed.sql.Database
@@ -13,6 +14,7 @@ import room.GetRoomByIdUseCase
 import room.GetRoomsUseCase
 import room.PlacePieceInRoomUseCase
 import room.RoomRepository
+import score.GetScoreByUserIdUseCase
 import user.CreateUserUseCase
 import user.GetUserByIdUseCase
 import user.GetUsersUseCase
@@ -31,6 +33,9 @@ fun Application.koinPlugins() {
         single<GetUsersUseCase> { GetUsersUseCase(get()) }
         single<GetUserByIdUseCase> { GetUserByIdUseCase(get()) }
         single<CreateUserUseCase> { CreateUserUseCase(get()) }
+
+        // Score
+        single<GetScoreByUserIdUseCase> { GetScoreByUserIdUseCase(get(), get()) }
 
         /*** Repository ***/
         single<RoomRepository> { RoomRepositoryImpl(get()) }

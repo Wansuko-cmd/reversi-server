@@ -4,6 +4,7 @@ import com.oucrc.routing.rooms.index.roomsIndexGet
 import com.oucrc.routing.rooms.index.roomsIndexPost
 import com.oucrc.routing.rooms.show.roomsShowGet
 import com.oucrc.routing.rooms.show.roomsShowPost
+import com.oucrc.routing.scores.show.scoreShowGetRoute
 import com.oucrc.routing.users.index.usersIndexGet
 import com.oucrc.routing.users.index.usersIndexPost
 import com.oucrc.routing.users.show.usersShowGet
@@ -34,6 +35,12 @@ fun Application.mainRoute() {
             usersShowGet(
                 path = Routing.User.Show.path,
                 param = Routing.User.Show.userId,
+            )
+        }
+        route(Routing.Score.path) {
+            scoreShowGetRoute(
+                path = Routing.Score.Show.path,
+                param = Routing.Score.Show.userId,
             )
         }
         get("") { call.respond("Hello World") }

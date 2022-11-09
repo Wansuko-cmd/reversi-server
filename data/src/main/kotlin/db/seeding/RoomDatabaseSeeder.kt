@@ -1,5 +1,9 @@
 package db.seeding
 
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -20,6 +24,9 @@ object RoomDatabaseSeeder : DatabaseSeeder {
                 this[RoomModel.white] = it.white.id.value
                 this[RoomModel.next] = it.next?.toInt()
                 this[RoomModel.board] = it.board
+                this[RoomModel.createdAt] = Clock.System.now()
+                    .toLocalDateTime(TimeZone.UTC)
+                    .toJavaLocalDateTime()
             }
         }
     }

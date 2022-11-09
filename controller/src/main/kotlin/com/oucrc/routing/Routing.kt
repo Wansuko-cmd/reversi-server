@@ -18,6 +18,14 @@ sealed interface Routing {
             const val path = "{$userId}"
         }
     }
+
+    object Score : Routing {
+        const val path = "scores"
+        object Show {
+            const val userId = "userId"
+            const val path = "{$userId}"
+        }
+    }
 }
 
 /**
@@ -27,5 +35,7 @@ sealed interface Routing {
  *
  * Get : /user/ -> 全てのUserの表示
  * Post : /user/ -> 新しいUserの登録
- * Get : /user/{id} -> そのユーザーの戦績を表示
+ * Get : /user/{id} -> そのユーザーの情報を表示
+ *
+ * Score : /score/{id} -> そのユーザーの戦績を表示
  */

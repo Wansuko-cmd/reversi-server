@@ -24,7 +24,7 @@ object UserDatabaseSeeder : DatabaseSeeder {
         User.reconstruct(
             id = UserId("UserId$index"),
             name = UserName("UserName$index"),
-            status = UserStatus.OnMatch(roomId = RoomId("RoomId$index")),
+            status = UserStatus.WaitMatting,
         )
     }
 }

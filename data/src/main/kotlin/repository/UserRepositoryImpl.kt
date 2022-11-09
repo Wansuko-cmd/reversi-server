@@ -55,7 +55,6 @@ class UserRepositoryImpl(
             UserModel
                 .update(
                     where = { UserModel.id eq user.id.value },
-                    limit = 1,
                 ) {
                     it[name] = user.name.value
                     it[userStatus] = when (user.status) {

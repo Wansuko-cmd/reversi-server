@@ -8,11 +8,14 @@ class User private constructor(
     val name: UserName,
     val status: UserStatus,
 ) {
+    override fun equals(other: Any?): Boolean = (other as? User)?.id == this.id
     fun updateStatus(status: UserStatus) = reconstruct(
         id = id,
         name = name,
         status = status,
     )
+
+    override fun hashCode(): Int = id.hashCode()
 
     companion object {
         fun create(name: UserName) =
